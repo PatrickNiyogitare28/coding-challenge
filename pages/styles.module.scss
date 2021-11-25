@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    h1{
+        color: rgb(68, 68, 68);
+        font-size: 4em;
+        font-weight: bolder;
+        margin-top: 20%;
+    }
+}
