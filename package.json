@@ -49,8 +49,11 @@
   "dependencies": {
     "@prisma/client": "^3.6.0",
     "@reduxjs/toolkit": "^1.6.0",
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "har-validator": "^5.1.5",
     "hygen": "^6.1.0",
+    "jsonwebtoken": "^8.5.1",
     "next": "10.2.0",
     "next-compose-plugins": "^2.2.1",
     "next-i18next": "^7.0.1",
@@ -61,6 +64,7 @@
     "sass": "^1.32.5"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.6",
     "@types/node": "^14.14.13",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
