@@ -8,7 +8,6 @@
     }
     .row{
         width: 100%;
-        display: flex;
         margin-top: 1em;
         input{
             width: 100%;
@@ -34,4 +33,27 @@
             }
         }
     }
+}
+
+.errorMessageText{
+    color: red;
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+}
+.errorText{
+    color: red;
+    font-size: 13px;
+    display: block;
+}
+.errorInput{
+    border-color: red !important;
+
+}
+.disabledButton:hover{
+    transform: scale(1);
+    cursor: not-allowed;
+}
+.disabledButton{
+    background-color: rgba(55, 63, 81, 0.481) !important;
 }
