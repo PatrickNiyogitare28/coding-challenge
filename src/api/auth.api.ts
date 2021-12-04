@@ -86,4 +86,4 @@ export interface IUser{
     updatedAt: Date
 }
 
-export {signupWithEmail}
+export {signupWithEmail, loginWithEmail}

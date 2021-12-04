@@ -1,0 +1,37 @@
+.formContainer{
+    padding: 20px;
+    width: 70%;
+    margin-left: 2em;
+    h2{
+        font-size: 2em;
+        font-weight: bolder;
+    }
+    .row{
+        width: 100%;
+        display: flex;
+        margin-top: 1em;
+        input{
+            width: 100%;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid grey;
+            &:focus{
+                outline: none;
+                border: 2px solid black;
+            }
+        }
+        button{
+            width: 100%;
+            background-color: black;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            &:focus{
+                outline: none;
+            }
+            &:hover{
+                transform: scale(1.01);
+            }
+        }
+    }
+}
