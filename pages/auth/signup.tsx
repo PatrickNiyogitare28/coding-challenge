@@ -4,12 +4,9 @@ import { SignupForm } from '@components/forms';
 import styles from './styles.module.scss';
 
 const Signup: React.FC = () => {
- 
-
-    
     return (
         <div className={styles.viewContainer}>
-            <div className={styles.highrightWrapper}>
+            <div className={styles.highrightWrapper}> 
                 <div className={styles.socialMediaAuthWrapper}>
                 <h1>
                     Create Account to Continue

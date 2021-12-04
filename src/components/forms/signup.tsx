@@ -1,19 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useFormik}  from 'formik';
 import { signupInitialValues, signupValidationSchema } from './yup';
 import styles from './styles.module.scss';
+import { signup } from 'src/services/auth.service';
+import { IUser } from 'pages/interfaces/IUser';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const SignupForm: React.FC = () => {
+    const [loading, setLoading] = useState<boolean>(false);
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: signupInitialValues,
         onSubmit (values) {
-          console.log(values);
+         handleSave(values);
         },
         validationSchema: signupValidationSchema
     });
+    const handleSave = async(data: IUser) => {
+      setLoading(true);
+      const signupRes: any = await signup(data);
+      setLoading(false);
+      if(!signupRes.success) return toast.error(signupRes?.message || 'Registration failed');
+      return toast.success("Successfully registered")
+    }
     const {handleSubmit, errors, touched, getFieldProps} = formik;
     return (
+        <>
+        <Toaster 
+        />
         <div className={styles.formContainer}>
             <h2>Signup</h2>
             <form onSubmit={handleSubmit} noValidate>
@@ -72,11 +87,13 @@ const SignupForm: React.FC = () => {
                 <div className={styles.row} >
                 <button
                     type="submit"
-                    className={(Object.keys(errors).length === 0 || (Object.keys(touched).length === 0)) ? "" : styles.disabledButton}
-                    disabled={(Object.keys(errors).length === 0 || (Object.keys(touched).length === 0)) ? false : true}>Register</button>
+                    className={(Object.keys(errors).length === 0 || (Object.keys(touched).length === 0 || loading)) ? "" : styles.disabledButton}
+                    disabled={(Object.keys(errors).length === 0 || (Object.keys(touched).length === 0) || loading) ? false : true}>{!loading ? 'Register': 'Registerig...'}</button>
                 </div>
             </form>
         </div>
+        </>
     )
+
 }
 export  {SignupForm};
