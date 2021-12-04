@@ -47,6 +47,7 @@
     "ci:deploy:prod": "now -A prod.now.json --target=production --token=$NOW_TOKEN --scope=mthomps4 && now alias -A prod.now.json  --token=$NOW_TOKEN"
   },
   "dependencies": {
+    "@prisma/client": "^3.6.0",
     "@reduxjs/toolkit": "^1.6.0",
     "har-validator": "^5.1.5",
     "hygen": "^6.1.0",
@@ -72,6 +73,7 @@
     "jest": "^26.6.3",
     "nock": "^13.0.6",
     "postcss": "^8.2.4",
+    "prisma": "^3.6.0",
     "start-server-and-test": "^1.11.0",
     "tailwindcss": "^2.0.2",
     "ts-jest": "^26.4.4",
