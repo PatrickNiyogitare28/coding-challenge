@@ -1,0 +1,17 @@
+.sidebarContainer{
+    padding: 30px;
+    .tabItemsContainer{
+        margin-top: 1em;
+        .tabItem{
+            font-size: 12px;
+            margin-top: 1em;
+            font-weight: 500;
+            border-radius: 5px;
+            padding: 10px;
+            &:hover{
+                cursor: pointer;
+                background-color: rgba(0, 0, 0, 0.075) !important;
+            }
+        }
+    }
+}

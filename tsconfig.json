@@ -51,7 +51,10 @@
       ],
       "@helpers": [
         "src/helpers/*"
-      ]
+      ],
+      "@layout": [
+        "src/layout/*"
+      ],
     }
   },
   "include": [

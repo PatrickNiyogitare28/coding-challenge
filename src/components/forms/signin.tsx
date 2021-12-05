@@ -6,6 +6,7 @@ import { signin} from 'src/services/auth.service';
 import toast, { Toaster } from 'react-hot-toast';
 import { ILoginWithEmailDto } from 'pages/api/auth/signinWithEmail';
 import {crypto} from 'src/helpers/utils/crypto.util';
+import router from 'next/router';
 
 const SigninForm: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -24,7 +25,10 @@ const SigninForm: React.FC = () => {
       const encrypt = crypto.encrypt(signinRes.data);
       sessionStorage.setItem('hash', encrypt);
       sessionStorage.setItem('token', signinRes.token);
-      return toast.success("Successfully loggedin")
+      toast.success("Successfully loggedin");
+      setTimeout(() => {
+        router.push('/dashboard');
+      },500)
     }
     const {handleSubmit, errors, touched, getFieldProps} = formik;
     return (
