@@ -7,8 +7,8 @@ import { getTabItems } from './tabItems';
 
 const Sidebar:React.FC = () => {
     const router: any = useRouter();
-    const {param} = router.query;
-    const tabItems: Array<ITabItemProps> = getTabItems(param ? param : 'list');
+    const {tab} = router.query;
+    const tabItems: Array<ITabItemProps> = getTabItems(tab ? tab : 'list');
   
     return (
         <div className={styles.sidebarContainer}>
@@ -21,7 +21,7 @@ const Sidebar:React.FC = () => {
                     style={{backgroundColor: item.backgroundColor}}
                     onClick={() => router.push({
                         pathname: '/dashboard',
-                        query: { param: item.param },
+                        query: { tab: item.param },
                         })}>
                         <label>
                                 {item.name}
