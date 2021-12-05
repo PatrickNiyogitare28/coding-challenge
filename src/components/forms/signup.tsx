@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
+import { useRouter } from 'next/router';
 import {useFormik}  from 'formik';
 import { signupInitialValues, signupValidationSchema } from './yup';
 import styles from './styles.module.scss';
 import { signup } from 'src/services/auth.service';
-import { IUser } from 'pages/interfaces/IUser';
 import toast, { Toaster } from 'react-hot-toast';
+import { ISignupWithEmailDto } from 'pages/api/auth/signupWithEmail';
 
 
 const SignupForm: React.FC = () => {
+    const router:any = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
     const formik = useFormik({
         enableReinitialize: true,
@@ -17,12 +19,15 @@ const SignupForm: React.FC = () => {
         },
         validationSchema: signupValidationSchema
     });
-    const handleSave = async(data: IUser) => {
+    const handleSave = async(data: ISignupWithEmailDto) => {
       setLoading(true);
       const signupRes: any = await signup(data);
       setLoading(false);
       if(!signupRes.success) return toast.error(signupRes?.message || 'Registration failed');
-      return toast.success("Successfully registered")
+      toast.success("Successfully registered")
+      setTimeout(() => {
+          router.push('/auth/signin');
+      },5000);
     }
     const {handleSubmit, errors, touched, getFieldProps} = formik;
     return (
