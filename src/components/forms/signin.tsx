@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { signin} from 'src/services/auth.service';
 import toast, { Toaster } from 'react-hot-toast';
 import { ILoginWithEmailDto } from 'pages/api/auth/signinWithEmail';
-
+import {crypto} from 'src/helpers/utils/crypto.util';
 
 const SigninForm: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -18,9 +18,12 @@ const SigninForm: React.FC = () => {
     });
     const handleSave = async(data: ILoginWithEmailDto) => {
       setLoading(true);
-      const signupRes: any = await signin(data);
+      const signinRes: any = await signin(data);
       setLoading(false);
-      if(!signupRes.success) return toast.error(signupRes?.message || 'Login failed');
+      if(!signinRes.success) return toast.error(signinRes?.message || 'Login failed');
+      const encrypt = crypto.encrypt(signinRes.data);
+      sessionStorage.setItem('hash', encrypt);
+      sessionStorage.setItem('token', signinRes.token);
       return toast.success("Successfully loggedin")
     }
     const {handleSubmit, errors, touched, getFieldProps} = formik;
