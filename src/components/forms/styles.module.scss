@@ -1,0 +1,59 @@
+.formContainer{
+    padding: 20px;
+    width: 70%;
+    margin-left: 2em;
+    h2{
+        font-size: 2em;
+        font-weight: bolder;
+    }
+    .row{
+        width: 100%;
+        margin-top: 1em;
+        input{
+            width: 100%;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid grey;
+            &:focus{
+                outline: none;
+                border: 2px solid black;
+            }
+        }
+        button{
+            width: 100%;
+            background-color: black;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            &:focus{
+                outline: none;
+            }
+            &:hover{
+                transform: scale(1.01);
+            }
+        }
+    }
+}
+
+.errorMessageText{
+    color: red;
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+}
+.errorText{
+    color: red;
+    font-size: 13px;
+    display: block;
+}
+.errorInput{
+    border-color: red !important;
+
+}
+.disabledButton:hover{
+    transform: scale(1);
+    cursor: not-allowed;
+}
+.disabledButton{
+    background-color: rgba(55, 63, 81, 0.481) !important;
+}
