@@ -1,10 +1,11 @@
 import Layout from 'src/layout';
 import React from 'react';
+import DashboardHeader from '@components/dashboard-header';
 
 const Dashboard: React.FC = () => {
     return(
         <Layout>
-            <h1>Dashboard data here</h1>
+            <DashboardHeader />
         </Layout>
     )
 }

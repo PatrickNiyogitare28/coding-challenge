@@ -35,8 +35,8 @@ const Navbar: React.FC = () => {
              <div className={styles.profileLabelWrapper}>
                  <ul>
                      <li>Hey,</li>
-                     <li>{user.firstName}</li>
-                     <li>{user.firstName.substr(0,1)}{user.lastName.substr(0,1)}</li>
+                     <li>{user?.firstName}</li>
+                     <li>{user?.firstName?.substr(0,1)}{user?.lastName?.substr(0,1)}</li>
                  </ul>
              </div>
            </div>

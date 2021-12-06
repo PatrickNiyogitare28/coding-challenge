@@ -1,3 +1,5 @@
-export const Container = ({ }) => {
-    return <div className="min-h-screen flex flex-col"></div>;
+import { IContainerProps } from "@components/IProps";
+
+export const Container:React.FC <IContainerProps>= ({ children}) => {
+    return <div className="min-h-screen flex flex-col">{children}</div>;
 };
