@@ -3,6 +3,8 @@ import Image from 'next/image';
 import styles from './styles.module.scss';
 import { ToggleSwitch } from '@components/toggle-switch';
 import { useRouter } from 'next/router';
+import { IUser } from 'pages/api/auth/signupWithEmail';
+import { crypto } from 'src/helpers/utils/crypto.util';
 
 const Navbar: React.FC = () => {
     const router: any = useRouter();
@@ -13,6 +15,9 @@ const Navbar: React.FC = () => {
       if(tab === 'to-visit') return setBreadCrumb('TO VISIT');
       return setBreadCrumb('MY LIST')
     },[tab])
+
+    const user: IUser = (typeof window  !== 'undefined') ? crypto.decrypt(sessionStorage.getItem('hash')) : {};
+
     const [dirkMode, setDirkMode] = useState<boolean>(false);
     return (
         <div className={styles.navContainer}>
@@ -30,8 +35,8 @@ const Navbar: React.FC = () => {
              <div className={styles.profileLabelWrapper}>
                  <ul>
                      <li>Hey,</li>
-                     <li>Janee</li>
-                     <li>JN</li>
+                     <li>{user.firstName}</li>
+                     <li>{user.firstName.substr(0,1)}{user.lastName.substr(0,1)}</li>
                  </ul>
              </div>
            </div>
