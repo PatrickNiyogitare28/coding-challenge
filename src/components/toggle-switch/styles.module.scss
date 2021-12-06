@@ -1,0 +1,15 @@
+.container{
+    width: 23px;
+    height: 15px;
+    border: 2px solid black;
+    padding: 2px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .item{
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+    }
+}

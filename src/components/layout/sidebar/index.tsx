@@ -17,6 +17,7 @@ const Sidebar:React.FC = () => {
             {
                 tabItems.map((item: ITabItemProps, index: number) => (
                     <div 
+                    key={`${index}`}
                     className={styles.tabItem} 
                     style={{backgroundColor: item.backgroundColor}}
                     onClick={() => router.push({
