@@ -1,5 +1,7 @@
 .sidebarContainer{
     padding: 30px;
+    position: sticky;
+    top: 0;
     .tabItemsContainer{
         margin-top: 1em;
         .tabItem{
