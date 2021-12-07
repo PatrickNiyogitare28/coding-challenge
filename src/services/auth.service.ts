@@ -1,6 +1,5 @@
 import { ILoginWithEmailDto } from "pages/api/auth/signinWithEmail";
 import { ISignupWithEmailDto } from "pages/api/auth/signupWithEmail";
-import { IUser } from "pages/interfaces/IUser";
 
 const signup = async (data: ISignupWithEmailDto) => {
     try {

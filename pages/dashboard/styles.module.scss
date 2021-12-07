@@ -1,0 +1,55 @@
+.itemsContainer{
+    width: 100%;
+    padding: 2em;
+    display: grid;
+    grid-template-columns: 250px 250px 250px 250px;
+    column-gap: 50px;
+    row-gap: 30px;
+    .item{
+        background-color: rgba(214, 214, 214, 0.5);
+        height: 340px;
+        border-radius: 10px;
+        .flag{
+            border-radius: 10px;
+        }
+        .detailsContainer{
+            padding: 15px;
+            h3{
+                font-weight: bold;
+                font-size: 14px;
+            }
+            label{
+                display: block;
+                font-size: 12px;
+                margin-top: 1em;
+                span{
+                    margin-left: 0.5em;
+                }
+            }
+        }
+        .actionsContainer{
+            width: 100%;
+            display: flex;
+            .actionsWrapper{
+                margin-left: auto;
+                width: 40%;
+                display: flex;
+                justify-content: space-between;
+                margin-right: 1em;
+                .iconContainer{
+                    background: rgba(128, 128, 128, 0.329);
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    cursor: pointer;
+                    &:hover{
+                        background-color: rgb(163, 163, 163);
+                    }
+                }
+            }
+        }
+    }
+}
