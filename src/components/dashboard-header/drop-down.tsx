@@ -3,22 +3,15 @@ import Image from 'next/image';
 import { IFilterProps, ISelectOption} from './IProps';
 import styles from './styles.module.scss';
 
-const DropDown:React.FC<IFilterProps> = ({label, selectOptions}) => {
+const DropDown:React.FC<IFilterProps> = ({label, selectOptions, onSelectChanged}) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
     const [selectedOption, setSelectedOption] = useState<ISelectOption>();
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
-    // const selectOptions:Array<ISelectOption> = [
-    //     {
-    //         label: "Africa",
-    //         value:"AFRICA"
-    //     },
-    //     {
-    //         label:"Europe",
-    //         value:"EUROPE"
-    //     }
-    // ];
     const [options, setOptions] = useState<Array<ISelectOption>>(selectOptions);
+    useEffect(() => {
+     onSelectChanged(selectedOption?.value);
+    },[selectedOption])
 
 /**
  * Hook that alerts clicks outside of the passed ref

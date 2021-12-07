@@ -3,7 +3,7 @@ import axios from 'axios'
 import { BASE_URL } from 'src/constants/base-url'
 const { get } = axios
 
-const getAllNameRegion = (endpoint: string) => get(`${BASE_URL}/${endpoint}`,
+const getAllNameRegion = (endpoint: string) => get(`${BASE_URL}${endpoint}`,
   {
     headers: {
       "Content-type": "application/json",

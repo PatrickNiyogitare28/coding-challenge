@@ -10,14 +10,16 @@ import styles from './styles.module.scss';
 const Dashboard: React.FC = () => {
    const dispatch: any = useAppDispatch();
    const [countries, setCountries ] = useState<Array<ICountry>>([]);
+   const [queryName, setQueryName] = useState<string>("");
+   const [queryRegion, setQueryRegion] = useState<string>("");
+   const [endpoint, setEndpoint] = useState<string>('/all')
    useEffect(() => {
     getCountries();
    },[dispatch])
 
    const getCountries = async() => {
-       const countries: Array<ICountry> = await countriesService.getAllNameRegion('/all');
+       const countries: Array<ICountry> = await countriesService.getAllNameRegion(endpoint);
        setCountries(countries);
-       console.log(countries)
    }
   
    const getCurrencyName = (currency: Object) : string => {
@@ -26,10 +28,34 @@ const Dashboard: React.FC = () => {
      return names[0];
    }
 
+   useEffect(() => {
+    if(queryName?.length > 0){
+        setEndpoint(`/name/${queryName}`)
+    }
+    else{
+        setEndpoint('/all')
+    }
+   },[queryName])
+
+   useEffect(() => {
+    if(queryRegion?.length > 0){
+        setEndpoint(`/region/${queryRegion}`)
+    }
+    else{
+        setEndpoint('/all')
+    }
+   },[queryRegion]);
+
+   useEffect(() => {
+    getCountries();
+   }, [endpoint])
+
     return(
         <Layout>
             <>
-            <DashboardHeader />
+            <DashboardHeader 
+            onSearchInputChanged={(query: string) => setQueryName(query)} 
+            onSelectInputChanged={(query: string) => setQueryRegion(query)} />
             <div className={styles.itemsContainer}>
                 {
                   countries?.length > 0 &&  countries?.map((country: ICountry, index: number) => (
