@@ -7,7 +7,7 @@ export default async function handler (req: any, res: any)  {
   const payload: ISignupWithEmailDto = req.body;
   const {firstName, lastName, email, password} = payload;
   const existsByEmail: boolean = await _existsByEmail(email);
-  if(existsByEmail) return res.status(200).json({
+  if(existsByEmail) return res.status(400).json({
     success: false, 
     message: 'Email already exists'
   });
@@ -21,7 +21,7 @@ export default async function handler (req: any, res: any)  {
         password: hashedPassword
       },
     });
-    const payload = _.pick(user, ['firstName', 'lastName', 'email', 'createdAt', 'updatedAt']);
+    const payload:any = _.pick(user, ['id','firstName', 'lastName', 'email', 'createdAt', 'updatedAt']);
     const accessToken = signToken(payload);
     res.status(200).json({
       success: true, 
