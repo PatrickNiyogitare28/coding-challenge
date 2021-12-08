@@ -11,8 +11,12 @@ import { crypto } from 'src/helpers/utils/crypto.util';
 import toast, { Toaster } from 'react-hot-toast';
 import { IAddToVisitDto } from 'pages/api/countries/toVisit/add';
 import { IToVisit } from 'src/interfaces/IToVisit';
+import { useRouter } from 'next/router';
+import { ITabItemProps } from '@components/layout/sidebar/IProps';
+import { getTabItems } from '@components/layout/sidebar/tabItems';
 
 const Dashboard: React.FC = () => {
+    const router: any = useRouter();
    const dispatch: any = useAppDispatch();
    const [countries, setCountries ] = useState<Array<ICountry>>([]);
    const [queryName, setQueryName] = useState<string>("");
@@ -20,6 +24,9 @@ const Dashboard: React.FC = () => {
    const [endpoint, setEndpoint] = useState<string>('/all')
    const [currentUser, setCurrentUser]  = useState<IUser | null> ();
    const [toVisitList, setToVisitList] = useState<Array<IToVisit | any>>([]);
+   const [loading, setLoading] = useState<boolean>(false);
+   const {tab} = router.query;
+   const tabItems: Array<ITabItemProps> = getTabItems(tab ? tab : 'list');
 
    useEffect(() => {
     getCountries();
@@ -28,8 +35,10 @@ const Dashboard: React.FC = () => {
    },[dispatch])
 
    const getCountries = async() => {
+       setLoading(true);
        const countries: Array<ICountry> = await countriesService.getAllNameRegion(endpoint);
        setCountries(countries);
+       setLoading(false);
    }
   
    const getCurrencyName = (currency: Object) : string => {
@@ -57,6 +66,7 @@ const Dashboard: React.FC = () => {
    },[queryRegion]);
 
    useEffect(() => {
+    getToVisitList()
     getCountries();
    }, [endpoint])
 
@@ -98,6 +108,22 @@ const Dashboard: React.FC = () => {
     toast.success(removeRes.message);
     getToVisitList();
    }
+
+   /*handle on tab change*/
+   useEffect(() => {
+     if(tab === 'to-visit'){
+         let filtrate: Array<ICountry> = [];
+         countries.forEach((country: ICountry) => {
+           if(toVisitList.findIndex((ctr: IToVisit) => ctr.countryName == country.name.common) > 0){
+               filtrate.push(country);
+           }
+         });
+         setCountries(filtrate);
+     }
+     else{
+         getCountries();
+     }
+   },[tab])
     return(
         <Layout>
             <>
@@ -105,6 +131,7 @@ const Dashboard: React.FC = () => {
             <DashboardHeader 
             onSearchInputChanged={(query: string) => setQueryName(query)} 
             onSelectInputChanged={(query: string) => setQueryRegion(query)} />
+            {!loading && 
             <div className={styles.itemsContainer}>
                 {
                   countries?.length > 0 &&  countries?.map((country: ICountry, index: number) => (
@@ -140,6 +167,12 @@ const Dashboard: React.FC = () => {
                     ))
                 }
             </div>
+            }
+            {loading && 
+             <div className={styles.loadingWrapper}>
+                 <Image className={styles.loader} src="/icons/loading.gif" alt="laoding" width="500" height="320" />
+             </div>
+            }
             </>
         </Layout>
     )
