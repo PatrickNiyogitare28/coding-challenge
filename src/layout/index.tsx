@@ -3,14 +3,14 @@ import React from 'react';
 import { ILayoutProps } from './IProps';
 import styles from './styles.module.scss';
 
-const Layout:React.FC<ILayoutProps> = ({children}) => {
+const Layout:React.FC<ILayoutProps> = ({children, showBackBreadCrumb=false}) => {
     return (
         <div className={styles.layoutContainer}>
            <div className={styles.sidebarWrapper}>
             <Sidebar />
            </div>
            <div className={styles.contentWrapper}>
-            <Navbar />
+            <Navbar backBreadCrumb={showBackBreadCrumb}/>
             {children}
            </div>
         </div>

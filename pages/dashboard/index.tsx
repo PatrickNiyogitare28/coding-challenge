@@ -24,6 +24,7 @@ const Dashboard: React.FC = () => {
    const [endpoint, setEndpoint] = useState<string>('/all')
    const [currentUser, setCurrentUser]  = useState<IUser | null> ();
    const [toVisitList, setToVisitList] = useState<Array<IToVisit | any>>([]);
+   const [visitedList, setVisitedList] = useState<Array<IToVisit | any>>([]);
    const [loading, setLoading] = useState<boolean>(false);
    const {tab} = router.query;
    const tabItems: Array<ITabItemProps> = getTabItems(tab ? tab : 'list');
@@ -32,6 +33,7 @@ const Dashboard: React.FC = () => {
     getCountries();
     getLoggedInUser();
     getToVisitList();
+    getVisitedList();
    },[dispatch])
 
    const getCountries = async() => {
@@ -67,6 +69,7 @@ const Dashboard: React.FC = () => {
 
    useEffect(() => {
     getToVisitList()
+    getVisitedList();
     getCountries();
    }, [endpoint])
 
@@ -84,6 +87,7 @@ const Dashboard: React.FC = () => {
       if(!onAddToListResponse.success) return toast.error(onAddToListResponse.message || 'Error occured');
       toast.success(onAddToListResponse.message || `Added ${countryName} to visit list`);
       getToVisitList();
+      getVisitedList();
    }
    /*Get to visit list*/
    const getToVisitList = async() => {
@@ -93,6 +97,14 @@ const Dashboard: React.FC = () => {
        if(!getListRes.success) return;
        setToVisitList(getListRes.data);
    }
+    /*Get to visited list*/
+    const getVisitedList = async() => {
+        const user: IUser = (typeof window  !== 'undefined') ? crypto.decrypt(sessionStorage.getItem('hash')) : null;
+        if(!user || !user.id) return toast.error('Loggin required');
+        const getListRes: any = await countriesService.getVisitedListByUserId(user.id);
+        if(!getListRes.success) return;
+        setVisitedList(getListRes.data);
+    }
    /*isAdded to visit list*/
    const isAddedToVisitList = (countryName: string) => {
     const index: any = toVisitList?.findIndex((country: IToVisit) => country.countryName === countryName);
@@ -111,7 +123,12 @@ const Dashboard: React.FC = () => {
 
    /*handle on tab change*/
    useEffect(() => {
-     if(tab === 'to-visit'){
+     handleOnTabChanged();
+   },[tab])
+
+   const handleOnTabChanged = async() => {
+    if(tab === 'to-visit'){
+         await getCountries();
          let filtrate: Array<ICountry> = [];
          countries.forEach((country: ICountry) => {
            if(toVisitList.findIndex((ctr: IToVisit) => ctr.countryName == country.name.common) > -1){
@@ -120,10 +137,20 @@ const Dashboard: React.FC = () => {
          });
          setCountries(filtrate);
      }
+     else if(tab === 'visited'){
+        await getCountries();
+        let filtrate: Array<ICountry> = [];
+         countries.forEach((country: ICountry) => {
+           if(visitedList.findIndex((ctr: IToVisit) => ctr.countryName == country.name.common) > -1){
+               filtrate.push(country);
+           }
+         });
+         setCountries(filtrate);
+     }
      else{
          getCountries();
      }
-   },[tab])
+   }
     return(
         <Layout>
             <>

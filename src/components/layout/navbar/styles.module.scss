@@ -8,10 +8,17 @@
     position: sticky;
     top: 0;
     background-color: white;
-    z-index: 10;    .breadCrumbContainer{
+    z-index: 10;    
+    .breadCrumbContainer{
         label{
             font-size: 14px;
             font-weight: bold;
+        }
+        .backBreadCrumb{
+            cursor: pointer;
+            &:hover{
+                transform: scale(0.99);
+            }
         }
     }
     .actionsWrapper{
