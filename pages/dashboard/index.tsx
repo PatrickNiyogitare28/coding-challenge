@@ -114,7 +114,7 @@ const Dashboard: React.FC = () => {
      if(tab === 'to-visit'){
          let filtrate: Array<ICountry> = [];
          countries.forEach((country: ICountry) => {
-           if(toVisitList.findIndex((ctr: IToVisit) => ctr.countryName == country.name.common) > 0){
+           if(toVisitList.findIndex((ctr: IToVisit) => ctr.countryName == country.name.common) > -1){
                filtrate.push(country);
            }
          });
