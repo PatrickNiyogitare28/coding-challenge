@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
    const [queryRegion, setQueryRegion] = useState<string>("");
    const [endpoint, setEndpoint] = useState<string>('/all')
    const [currentUser, setCurrentUser]  = useState<IUser | null> ();
-   const [toVisitList, setToVisitList] = useState<Array<IToVisit>>();
+   const [toVisitList, setToVisitList] = useState<Array<IToVisit | any>>([]);
 
    useEffect(() => {
     getCountries();
@@ -88,7 +88,15 @@ const Dashboard: React.FC = () => {
     const index: any = toVisitList?.findIndex((country: IToVisit) => country.countryName === countryName);
     if(index > -1) return true;
     return false;
-    // alert(index);
+   }
+   /*Remove from to visit list*/
+   const removeFromToVisitList  = async(countryName: string) => {
+    const index: any = toVisitList?.findIndex((country: IToVisit) => country.countryName === countryName);
+    if(index < 0) return toast.error(`${countryName} not found in to visit list`);
+    const removeRes: any = await countriesService.removeFromVisitById(toVisitList[index].id);
+    if(!removeRes.success) return toast.error(removeRes.message || 'Can not remove from to visit list');
+    toast.success(removeRes.message);
+    getToVisitList();
    }
     return(
         <Layout>
@@ -116,7 +124,7 @@ const Dashboard: React.FC = () => {
                             </div>
                             <div className={styles.actionsContainer}>
                                 <div className={styles.actionsWrapper}>
-                                    <div className={styles.iconContainer}>
+                                    <div className={styles.iconContainer} onClick={() => removeFromToVisitList(country.name.common)}>
                                         <Image src="/icons/delete-icon.svg" width="100" height="70" alt="delete" />
                                     </div>
                                     <div 
