@@ -29,3 +29,18 @@ enum EAccountType {
   GOOGLE
   FACEBOOK
 }
+
+// Visits entity
+model Visits {
+  id String @id @default(uuid())
+  user String 
+  countryName String
+  status EToVisitStatus @default(VISIT_PENDING)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+enum EToVisitStatus {
+  VISITED
+  VISIT_PENDING
+}

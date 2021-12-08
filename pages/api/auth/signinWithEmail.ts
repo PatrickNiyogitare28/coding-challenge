@@ -13,7 +13,7 @@ export default async function handler (req: any, res: any) {
       const isPasswordValid: boolean = await verifyPassword(user?.password, password);
       if(!isPasswordValid) return res.status(401).json({message: 'Invalid email or password'});
 
-      const payload = _.pick(user, ['firstName', 'lastName', 'email', 'createdAt', 'updatedAt']);
+      const payload = _.pick(user, ['id','firstName', 'lastName', 'email', 'createdAt', 'updatedAt']);
       const accessToken = signToken(payload);
       res.status(200).json({
         success: true, 
