@@ -11,15 +11,22 @@ import { crypto } from 'src/helpers/utils/crypto.util';
 import toast, { Toaster } from 'react-hot-toast';
 import { IAddToVisitDto } from 'pages/api/countries/toVisit/add';
 import { IToVisit } from 'src/interfaces/IToVisit';
+import { useRouter } from 'next/router';
+import { ITabItemProps } from '@components/layout/sidebar/IProps';
+import { getTabItems } from '@components/layout/sidebar/tabItems';
 
 const Dashboard: React.FC = () => {
+    const router: any = useRouter();
    const dispatch: any = useAppDispatch();
    const [countries, setCountries ] = useState<Array<ICountry>>([]);
    const [queryName, setQueryName] = useState<string>("");
    const [queryRegion, setQueryRegion] = useState<string>("");
    const [endpoint, setEndpoint] = useState<string>('/all')
    const [currentUser, setCurrentUser]  = useState<IUser | null> ();
-   const [toVisitList, setToVisitList] = useState<Array<IToVisit>>();
+   const [toVisitList, setToVisitList] = useState<Array<IToVisit | any>>([]);
+   const [loading, setLoading] = useState<boolean>(false);
+   const {tab} = router.query;
+   const tabItems: Array<ITabItemProps> = getTabItems(tab ? tab : 'list');
 
    useEffect(() => {
     getCountries();
@@ -28,8 +35,10 @@ const Dashboard: React.FC = () => {
    },[dispatch])
 
    const getCountries = async() => {
+       setLoading(true);
        const countries: Array<ICountry> = await countriesService.getAllNameRegion(endpoint);
        setCountries(countries);
+       setLoading(false);
    }
   
    const getCurrencyName = (currency: Object) : string => {
@@ -57,6 +66,7 @@ const Dashboard: React.FC = () => {
    },[queryRegion]);
 
    useEffect(() => {
+    getToVisitList()
     getCountries();
    }, [endpoint])
 
@@ -88,8 +98,32 @@ const Dashboard: React.FC = () => {
     const index: any = toVisitList?.findIndex((country: IToVisit) => country.countryName === countryName);
     if(index > -1) return true;
     return false;
-    // alert(index);
    }
+   /*Remove from to visit list*/
+   const removeFromToVisitList  = async(countryName: string) => {
+    const index: any = toVisitList?.findIndex((country: IToVisit) => country.countryName === countryName);
+    if(index < 0) return toast.error(`${countryName} not found in to visit list`);
+    const removeRes: any = await countriesService.removeFromVisitById(toVisitList[index].id);
+    if(!removeRes.success) return toast.error(removeRes.message || 'Can not remove from to visit list');
+    toast.success(removeRes.message);
+    getToVisitList();
+   }
+
+   /*handle on tab change*/
+   useEffect(() => {
+     if(tab === 'to-visit'){
+         let filtrate: Array<ICountry> = [];
+         countries.forEach((country: ICountry) => {
+           if(toVisitList.findIndex((ctr: IToVisit) => ctr.countryName == country.name.common) > -1){
+               filtrate.push(country);
+           }
+         });
+         setCountries(filtrate);
+     }
+     else{
+         getCountries();
+     }
+   },[tab])
     return(
         <Layout>
             <>
@@ -97,6 +131,7 @@ const Dashboard: React.FC = () => {
             <DashboardHeader 
             onSearchInputChanged={(query: string) => setQueryName(query)} 
             onSelectInputChanged={(query: string) => setQueryRegion(query)} />
+            {!loading && 
             <div className={styles.itemsContainer}>
                 {
                   countries?.length > 0 &&  countries?.map((country: ICountry, index: number) => (
@@ -116,7 +151,7 @@ const Dashboard: React.FC = () => {
                             </div>
                             <div className={styles.actionsContainer}>
                                 <div className={styles.actionsWrapper}>
-                                    <div className={styles.iconContainer}>
+                                    <div className={styles.iconContainer} onClick={() => removeFromToVisitList(country.name.common)}>
                                         <Image src="/icons/delete-icon.svg" width="100" height="70" alt="delete" />
                                     </div>
                                     <div 
@@ -132,6 +167,12 @@ const Dashboard: React.FC = () => {
                     ))
                 }
             </div>
+            }
+            {loading && 
+             <div className={styles.loadingWrapper}>
+                 <Image className={styles.loader} src="/icons/loading.gif" alt="laoding" width="500" height="320" />
+             </div>
+            }
             </>
         </Layout>
     )

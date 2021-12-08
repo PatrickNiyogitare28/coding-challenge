@@ -1,19 +1,21 @@
 import { prisma } from 'lib/prisma';
 
 /*Todo protecting with middleware*/
+/*Doing validations*/
 export default async function handler (req: any, res: any) {
   const {pid} = req.query;
     try{
-      const countries: Array<any> = await prisma.visits.findMany({where: {user: pid, status: 'VISIT_PENDING'}});
+      await prisma.visits.delete({where: {id: pid}});
       return res.status(200).json({
         success: true,
-        data: countries
+        message: 'Successfully removed from visit list'
       });
     }
     catch(e){
+      console.log(e);
       return res.status(400).json({
         success: false,
-        message: 'can not get to visit list'
+        message: 'Can not remove from visit list'
       })
     }
 }

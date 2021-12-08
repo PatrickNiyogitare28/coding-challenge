@@ -59,5 +59,25 @@ const getToVisitByUserId = async (pid: string) => {
     return {success: false, message: 'Failed to get to visit list'}
   }
 };
+
+const removeFromVisitById = async (pid: string) => {
+  try {
+      let response: any = await fetch(`http://localhost:3000/api/countries/fromVisit/${pid}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'GET',
+    }).then((response) => response.json())
+    .then((response) => {
+      const {success, message} = response;
+      if(success) return {success, message};
+      return {success, message};
+      
+    });
+    return response;
+  } catch (error: any) {
+    return {success: false, message: 'Failed to get to visit list'}
+  }
+};
   
-  export const  countriesService = {getAllNameRegion, addToVisit, getToVisitByUserId}
+  export const  countriesService = {getAllNameRegion, addToVisit, getToVisitByUserId, removeFromVisitById}
