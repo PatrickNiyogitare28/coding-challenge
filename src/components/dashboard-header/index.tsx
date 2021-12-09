@@ -31,7 +31,7 @@ const DashboardHeader: React.FC<IDashboardHeaderProps> = ({onSearchInputChanged,
     return (
         <div className={styles.headerContainer}>
             <SearchInput onChange={(query: string) => onSearchInputChanged(query)}/>
-            <DropDown label="Select" show={true} selectOptions={selectOptions} onSelectChanged={(value: string) => onSearchInputChanged(value)}/>
+            <DropDown label="Select" show={true} selectOptions={selectOptions} onSelectChanged={(value: string) => onSelectInputChanged(value)}/>
         </div>
     )
 }
