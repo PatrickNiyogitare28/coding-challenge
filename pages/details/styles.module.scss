@@ -1,0 +1,63 @@
+.container{
+    padding: 30px 40px;
+    height: 80vh;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    .detailsWrapper{
+        width: 60%;
+        h3{
+            font-weight: bolder;
+            font-size: 18px;
+        }
+        .dataContainer{
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1em;
+            .dataWrapper{
+                width: 45%;
+                label{
+                    font-size: 12px;
+                    display: block;
+                    margin-top: 1em;
+                    font-weight: 500;
+                    span{
+                        font-weight: lighter;
+                        margin-left: 1em;
+                        small{
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .borderCountriesWrapper{
+        display: flex;
+        margin-top: 2em;
+        .labelWrapper{
+            label{
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
+        .bordersWrapper{
+            display: flex;
+            .borderItem{
+                margin-left: 0.5em;
+                &:nth-child(1){
+                    margin-left: 1em;
+                }
+                label{
+                    border: 1px solid rgba(128, 128, 128, 0.418);
+                    padding: 3px;
+                    font-size: 11px;
+                    border-radius: 3px;
+                    color: rgba(83, 83, 83, 0.795);
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

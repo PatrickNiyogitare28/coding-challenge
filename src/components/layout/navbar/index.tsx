@@ -5,8 +5,9 @@ import { ToggleSwitch } from '@components/toggle-switch';
 import { useRouter } from 'next/router';
 import { IUser } from 'pages/api/auth/signupWithEmail';
 import { crypto } from 'src/helpers/utils/crypto.util';
+import { INavbarProps } from './IProps';
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<INavbarProps> = ({backBreadCrumb=false}) => {
     const router: any = useRouter();
     const {tab} = router.query;
     const [breadCrumb, setBreadCrumb] = useState<any>("MY LIST");
@@ -22,7 +23,15 @@ const Navbar: React.FC = () => {
     return (
         <div className={styles.navContainer}>
            <div className={styles.breadCrumbContainer}>
+             {!backBreadCrumb && 
              <label>{breadCrumb}</label>
+             }
+             {backBreadCrumb && 
+             <div className={styles.backBreadCrumb} style={{display: 'flex', width:"60px"}} onClick={() => router.push('/dashboard')}>
+                <Image src="/icons/back-icon.svg" width="100" height="20" alt="Return back" />
+                <label>Back</label>
+             </div>
+             }
            </div>
            <div className={styles.actionsWrapper}>
              <div className={styles.toggleModeWrapper}>

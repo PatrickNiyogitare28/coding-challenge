@@ -6,17 +6,25 @@ export default async function handler (req: any, res: any) {
     const payload: IAddToVisitDto = req.body;
     const {countryName, userId} = payload;
     const existsByName: boolean = await _existsByName(userId, countryName)
-      if(existsByName) return res.status(200).json({
-        success: false, 
-        message: 'Country already added to visit list'
-      }); 
+      if(existsByName) {
+        const visited:any =  await prisma.visits.updateMany({
+          where: {user: userId, countryName},
+          data: {status: 'VISITED'}
+        });
+        return res.status(200).json({
+          success: true,
+          message: `${countryName} successfully added to visited list`,
+          data: visited
+        })
+      }
+      else
       try {
        const toVisit:any = await prisma.visits.create({
         data: {countryName, user: userId}
        })
        return res.status(201).json({
          success: true,
-         message: 'Country successfully added to visit list',
+         message: `${countryName} successfully added to visit list 1`,
          data: toVisit
        })
     } catch (error) {
