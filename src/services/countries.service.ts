@@ -18,7 +18,20 @@ const getAllNameRegion = (endpoint: string) => get(`${BASE_URL}${endpoint}`,
     return error
   })
 
-  
+  const getOneByName = (name: string) => get(`${BASE_URL}/name/${name}`,
+  {
+    headers: {
+      "Content-type": "application/json",
+    }
+  }
+)
+  .then((res: any) => {
+    return res.data
+  })
+  .catch((error: any) => {
+    return error
+  })
+
 const addToVisit = async (data: IAddToVisitDto) => {
   try {
       let response: any = await fetch('http://localhost:3000/api/countries/toVisit/add', {
@@ -105,5 +118,6 @@ const removeFromVisitById = async (pid: string) => {
     addToVisit, 
     getToVisitByUserId, 
     removeFromVisitById,
-    getVisitedListByUserId
+    getVisitedListByUserId,
+    getOneByName
   }

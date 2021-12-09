@@ -1,5 +1,6 @@
 export interface ICountryName{
-    common: string
+    common: string,
+    nativeName: Object
 }
 export interface ICountryFlag{
     png: string,
@@ -9,7 +10,11 @@ export interface ICountry {
     name: ICountryName,
     capital: Array<string>,
     region: string,
+    subregion: string,
     flags: ICountryFlag,
     population: number,
-    currencies: Object
+    currencies: Object,
+    languages: Object,
+    borders: Array<string>
+    tld: Array<string>
 }
