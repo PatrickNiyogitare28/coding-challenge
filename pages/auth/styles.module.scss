@@ -48,3 +48,25 @@
      }
     }
 }
+
+@media only screen and (max-width: 600px){
+    .viewContainer{
+        height: max-content;
+        padding: 0%;
+        .highrightWrapper{
+            flex-direction: column;
+            height: max-content;
+            padding: 0%;
+            h1{
+                font-size: 2em;
+                margin-top: 2em;
+            }
+            .socialMediaAuthWrapper{
+                width: 80%;
+            }
+            .formWrapper{
+                width: 100%;
+            }
+        }
+    }
+}
