@@ -24,7 +24,7 @@ export default async function handler (req: any, res: any) {
        })
        return res.status(201).json({
          success: true,
-         message: `${countryName} successfully added to visit list`,
+         message: `${countryName} successfully added to visit list 1`,
          data: toVisit
        })
     } catch (error) {

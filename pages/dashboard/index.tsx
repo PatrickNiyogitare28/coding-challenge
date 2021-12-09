@@ -51,11 +51,14 @@ const Dashboard: React.FC = () => {
     }
 
     useEffect(() => {
-        if (queryName?.length > 0) {
-            setEndpoint(`/name/${queryName}`)
+        if (queryName?.length == 0) {
+            setEndpoint('/all')
         }
         else {
-            setEndpoint('/all')
+            setEndpoint(`/name/${queryName}`);
+            setTimeout(() => {
+                getCountries();
+            },100)
         }
     }, [queryName])
 
@@ -68,11 +71,6 @@ const Dashboard: React.FC = () => {
         }
     }, [queryRegion]);
 
-    useEffect(() => {
-        getToVisitList()
-        getVisitedList();
-        getCountries();
-    }, [endpoint])
 
     /*get loggedin user*/
     const getLoggedInUser = () => {
