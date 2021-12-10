@@ -14,9 +14,13 @@
             padding: 20px;
             border-radius: 5px;
             border: 1px solid grey;
+            color: black;
             &:focus{
                 outline: none;
                 border: 2px solid black;
+            }
+            &::placeholder{
+                color: rgba(128, 128, 128, 0.699);
             }
         }
         button{
