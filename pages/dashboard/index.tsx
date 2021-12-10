@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import { ITabItemProps } from '@components/layout/sidebar/IProps';
 import { getTabItems } from '@components/layout/sidebar/tabItems';
 import { ItemsLoading } from '@components/loaders';
+import styled from "@emotion/styled";
 
 const Dashboard: React.FC = () => {
     const router: any = useRouter();

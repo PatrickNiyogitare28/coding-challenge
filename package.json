@@ -47,6 +47,8 @@
     "ci:deploy:prod": "now -A prod.now.json --target=production --token=$NOW_TOKEN --scope=mthomps4 && now alias -A prod.now.json  --token=$NOW_TOKEN"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
     "@prisma/client": "^3.6.0",
     "@reduxjs/toolkit": "^1.6.0",
     "@types/bcrypt": "^5.0.0",

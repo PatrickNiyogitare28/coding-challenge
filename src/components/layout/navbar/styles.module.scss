@@ -5,9 +5,6 @@
     height: 8vh;
     align-items: center;
     padding: 0px 20px;
-    position: sticky;
-    top: 0;
-    background-color: white;
     z-index: 10;    
     .breadCrumbContainer{
         width: 100px;
@@ -63,12 +60,11 @@
                 align-items: center;
                 li{
                     list-style-type: none;
-                    color: gray;
                     font-size: 12px;
                     font-weight: 500;
-                    &:nth-child(2){
+                    &:nth-child(1){
                         margin-left: 0.5em;
-                        color: black;
+                        color: gray;
                     }
                     &:nth-child(3){
                         margin-left: 1em;
