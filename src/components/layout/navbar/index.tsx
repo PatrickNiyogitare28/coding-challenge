@@ -7,7 +7,7 @@ import { IUser } from 'pages/api/auth/signupWithEmail';
 import { crypto } from 'src/helpers/utils/crypto.util';
 import { INavbarProps } from './IProps';
 
-const Navbar: React.FC<INavbarProps> = ({backBreadCrumb=false}) => {
+const Navbar: React.FC<INavbarProps> = ({backBreadCrumb=false, showSidebar}) => {
     const router: any = useRouter();
     const {tab} = router.query;
     const [breadCrumb, setBreadCrumb] = useState<any>("MY LIST");
@@ -23,6 +23,11 @@ const Navbar: React.FC<INavbarProps> = ({backBreadCrumb=false}) => {
     return (
         <div className={styles.navContainer}>
            <div className={styles.breadCrumbContainer}>
+             <div className={styles.toogleSidebar} onClick={() => showSidebar()}>
+                <div></div>
+                <div></div>
+                <div></div>
+             </div>
              {!backBreadCrumb && 
              <label>{breadCrumb}</label>
              }
