@@ -3,9 +3,48 @@ BAG Innovation Coding Challenge
 
 ## Getting Started
 
+- Clone the app
+- Run `yarn install`
+- Use the bellow guid to configure the db environment to be able to successfully connect to the db
+### Setting up the database
+This challenge is implemented using Postgresql db, the mapping is handled by [prisma](https://www.prisma.io/);
+
+Prerequisites to successfully connect to Pg DB
+
+- [X] Install postgresql db
+- [X] Create a database and name it `bag-coding-challenge-dev-db` as it was used in the challenge implementation
+### The next thing is to create you're db connection url
+- Go in `.env` file
+- Modify the `DATABASE_URL` variable to mutch your local db configurations
+
+> This is how we go about it
+
+`postgres` stands for your postgresql user, currently I'm using the default one.
+
+`@vernom28_niyo` stands for your postgresql user password
+
+`localhost:5432` stands for the connection url where your db is running
+
+> The above variables you need to change them depending on the environment in which you're running your postgresq in.
+
+### Next step is to run the postgresql prisma migrations
+
+Running the migration will automatically create the entities used in the challenge.. which is the last step
+
+Use the bellow command to be able to run migrations
+
+`npx prisma db push`
+
+If you're what to preveiw the db schemas and entities, [prisma](https://www.prisma.io/) provides an npx script that open the prisma studio on 5555
+
+This is the command to go.
+
+`npx prisma studio`
+
+The preview is rendered on `localhost:5555`
 
 
-## Available Scripts
+
 
 ### Running the development server.
 
@@ -25,7 +64,15 @@ BAG Innovation Coding Challenge
     yarn start
 ```
 
+### Running Jest test
+```bash
+     yarn test
+```
 
+### Running Cypress test
+```bash
+     yarn cypress:test
+```
 ### **TailwindCSS**
 
 A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.
@@ -86,3 +133,8 @@ GitHub Actions makes it easy to automate all your software workflows, now with w
 ## License
 
 MIT
+
+## Maintainer
+patrickniyogitare28@gmail.com
+
+> I'm always availabel on my email for any inquiry or guidance to successfully test the challenge features.
