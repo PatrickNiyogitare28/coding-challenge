@@ -32,6 +32,11 @@ const Dashboard: React.FC = () => {
     const tabItems: Array<ITabItemProps> = getTabItems(tab ? tab : 'list');
 
     useEffect(() => {
+        const theme: any = (typeof window !== 'undefined') ? localStorage.getItem('theme') : 'light';
+        document.body.dataset.theme = theme
+    },[dispatch])
+    
+    useEffect(() => {
         getCountries();
         getLoggedInUser();
         getToVisitList();

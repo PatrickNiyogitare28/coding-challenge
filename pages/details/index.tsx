@@ -47,6 +47,10 @@ const Details: React.FC = () => {
         const langsObj: Array<any> = Object?.keys(languages);
         return langsObj;
     }
+    useEffect(() => {
+        const theme: any = (typeof window !== 'undefined') ? localStorage.getItem('theme') : 'light';
+        document.body.dataset.theme = theme
+    },[dispatch])
     return (
         <>
         <Toaster />
