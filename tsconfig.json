@@ -45,16 +45,7 @@
       ],
       "@i18n": [
         "./i18n"
-      ],
-      "@services": [
-        "./services"
-      ],
-      "@helpers": [
-        "src/helpers/*"
-      ],
-      "@layout": [
-        "src/layout/*"
-      ],
+      ]
     }
   },
   "include": [
