@@ -1,3 +1,4 @@
 export interface INavbarProps {
-    backBreadCrumb?: boolean
+    backBreadCrumb?: boolean,
+    showSidebar?: any
 }
