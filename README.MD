@@ -21,7 +21,7 @@ Prerequisites to successfully connect to Pg DB
 
 `postgres` stands for your postgresql user, currently I'm using the default one.
 
-`@vernom28_niyo` stands for your postgresql user password
+`password` stands for your postgresql user password
 
 `localhost:5432` stands for the connection url where your db is running
 
